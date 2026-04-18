@@ -38,14 +38,6 @@ A full-stack CRM (Customer Relationship Management) system built with Angular an
 2. Run the app: `ng serve`
 3. Open: `http://localhost:4200`
 
-## 📸 Screenshots
-
-### Login
-![Login](screenshots/login.png)
-
-### Dashboard
-![Dashboard](screenshots/dashboard.png)
-
 ## 👤 Default Admin Account
 - Email: `admin@meteorcrm.com`
 - Password: `Admin@Meteor123`
