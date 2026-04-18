@@ -1,0 +1,115 @@
+<div class="flex h-screen bg-slate-950">
+    <app-sidebar></app-sidebar>
+
+    <div class="flex-1 ml-64 overflow-auto">
+
+        <!-- Header -->
+        <div class="bg-slate-900 border-b border-slate-700/50 px-8 py-5">
+            <div class="flex items-center gap-4">
+                <a routerLink="/tasks"
+                    class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="text-white text-xl font-bold">New Task</h1>
+                    <p class="text-slate-400 text-sm mt-0.5">Fill in the details
+                        below</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8 max-w-2xl">
+
+            <div *ngIf="errorMessage"
+                class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
+                {{ errorMessage }}
+            </div>
+
+            <div
+                class="bg-slate-900 border border-slate-700/50 rounded-2xl p-6">
+                <form (ngSubmit)="onSubmit()">
+
+                    <!-- Title -->
+                    <div class="mb-5">
+                        <label
+                            class="block text-slate-300 text-sm font-medium mb-2">Task
+                            Title *</label>
+                        <input type="text" [(ngModel)]="request.title"
+                            name="title"
+                            placeholder="e.g. Follow up with client"
+                            class="w-full bg-slate-800 border border-slate-600/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-5">
+                        <label
+                            class="block text-slate-300 text-sm font-medium mb-2">Description</label>
+                        <textarea [(ngModel)]="request.description"
+                            name="description" placeholder="Task details..."
+                            rows="3"
+                            class="w-full bg-slate-800 border border-slate-600/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"></textarea>
+                    </div>
+
+                    <!-- Priority & Due Date -->
+                    <div class="grid grid-cols-2 gap-4 mb-5">
+                        <div>
+                            <label
+                                class="block text-slate-300 text-sm font-medium mb-2">Priority</label>
+                            <select [(ngModel)]="request.priority"
+                                name="priority"
+                                class="w-full bg-slate-800 border border-slate-600/50 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                                <option [value]="1">Low</option>
+                                <option [value]="2">Medium</option>
+                                <option [value]="3">High</option>
+                                <option [value]="4">Critical</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-300 text-sm font-medium mb-2">Due
+                                Date</label>
+                            <input type="date" [(ngModel)]="request.dueDate"
+                                name="dueDate"
+                                class="w-full bg-slate-800 border border-slate-600/50 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+                        </div>
+                    </div>
+
+                    <!-- Customer -->
+                    <div class="mb-6">
+                        <label
+                            class="block text-slate-300 text-sm font-medium mb-2">Related
+                            Customer</label>
+                        <select [(ngModel)]="request.customerId"
+                            name="customerId"
+                            class="w-full bg-slate-800 border border-slate-600/50 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                            <option [value]="undefined">None</option>
+                            <option *ngFor="let customer of customers"
+                                [value]="customer.id">
+                                {{ customer.firstName }} {{ customer.lastName }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-3">
+                        <button type="submit" [disabled]="isLoading"
+                            class="flex-1 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-xl transition-all text-sm">
+                            <span *ngIf="!isLoading">Save Task</span>
+                            <span *ngIf="isLoading">Saving...</span>
+                        </button>
+                        <a routerLink="/tasks"
+                            class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 rounded-xl transition-all text-sm text-center">
+                            Cancel
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

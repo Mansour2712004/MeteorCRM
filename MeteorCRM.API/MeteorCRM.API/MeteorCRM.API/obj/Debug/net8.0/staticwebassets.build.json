@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "AZlNvD+3qD66lctGayfwAyFlO3az+FD9P4IwHnc63dY=",
+  "Source": "MeteorCRM.API",
+  "BasePath": "_content/MeteorCRM.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

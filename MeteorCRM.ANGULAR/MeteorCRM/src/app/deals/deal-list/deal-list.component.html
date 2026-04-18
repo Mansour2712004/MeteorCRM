@@ -1,0 +1,117 @@
+<div class="flex h-screen bg-slate-950">
+    <app-sidebar></app-sidebar>
+
+    <div class="flex-1 ml-64 overflow-auto">
+
+        <!-- Header -->
+        <div class="bg-slate-900 border-b border-slate-700/50 px-8 py-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-white text-xl font-bold">Deals</h1>
+                    <p class="text-slate-400 text-sm mt-0.5">Manage your deals
+                        pipeline</p>
+                </div>
+                <a routerLink="/deals/new"
+                    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-all shadow-lg shadow-blue-500/20">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    New Deal
+                </a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8">
+
+            <!-- Loading -->
+            <div *ngIf="isLoading"
+                class="flex items-center justify-center py-20">
+                <svg class="animate-spin w-8 h-8 text-blue-400" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                        stroke="currentColor" stroke-width="4" />
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 22 6.477 22 12h-4z" />
+                </svg>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="!isLoading && deals.length === 0"
+                class="flex flex-col items-center justify-center py-20 text-center">
+                <div
+                    class="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-slate-500" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <p class="text-slate-400 font-medium">No deals yet</p>
+                <p class="text-slate-500 text-sm mt-1">Create your first deal to
+                    get started</p>
+                <a routerLink="/deals/new"
+                    class="mt-4 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all">
+                    New Deal
+                </a>
+            </div>
+
+            <!-- Table -->
+            <div *ngIf="!isLoading && deals.length > 0"
+                class="bg-slate-900 border border-slate-700/50 rounded-2xl overflow-hidden">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-slate-700/50">
+                            <th
+                                class="text-left text-slate-400 text-xs font-medium px-6 py-4 uppercase tracking-wider">Title</th>
+                            <th
+                                class="text-left text-slate-400 text-xs font-medium px-6 py-4 uppercase tracking-wider">Customer</th>
+                            <th
+                                class="text-left text-slate-400 text-xs font-medium px-6 py-4 uppercase tracking-wider">Value</th>
+                            <th
+                                class="text-left text-slate-400 text-xs font-medium px-6 py-4 uppercase tracking-wider">Stage</th>
+                            <th
+                                class="text-left text-slate-400 text-xs font-medium px-6 py-4 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let deal of deals"
+                            class="border-b border-slate-700/30 hover:bg-slate-800/50 transition-colors">
+                            <td
+                                class="px-6 py-4 text-white text-sm font-medium">{{
+                                deal.title }}</td>
+                            <td class="px-6 py-4 text-slate-400 text-sm">{{
+                                deal.customerName }}</td>
+                            <td
+                                class="px-6 py-4 text-green-400 text-sm font-medium">${{
+                                deal.value | number }}</td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2.5 py-1 rounded-full text-xs font-medium bg-purple-400/10 text-purple-400">
+                                    {{ deal.stage }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button (click)="deleteDeal(deal.id)"
+                                    class="text-slate-400 hover:text-red-400 transition-colors">
+                                    <svg class="w-4 h-4" fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

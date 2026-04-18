@@ -1,0 +1,6 @@
+@MeteorCRM.API_HostAddress = http://localhost:5103
+
+GET {{MeteorCRM.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

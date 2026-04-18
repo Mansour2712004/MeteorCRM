@@ -1,0 +1,110 @@
+<div class="flex h-screen bg-slate-950">
+    <app-sidebar></app-sidebar>
+
+    <div class="flex-1 ml-64 overflow-auto">
+
+        <!-- Header -->
+        <div class="bg-slate-900 border-b border-slate-700/50 px-8 py-5">
+            <div class="flex items-center gap-4">
+                <a routerLink="/deals"
+                    class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="text-white text-xl font-bold">New Deal</h1>
+                    <p class="text-slate-400 text-sm mt-0.5">Fill in the details
+                        below</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8 max-w-2xl">
+
+            <div *ngIf="errorMessage"
+                class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
+                {{ errorMessage }}
+            </div>
+
+            <div
+                class="bg-slate-900 border border-slate-700/50 rounded-2xl p-6">
+                <form (ngSubmit)="onSubmit()">
+
+                    <!-- Title -->
+                    <div class="mb-5">
+                        <label
+                            class="block text-slate-300 text-sm font-medium mb-2">Deal
+                            Title *</label>
+                        <input type="text" [(ngModel)]="request.title"
+                            name="title" placeholder="e.g. Website Redesign"
+                            class="w-full bg-slate-800 border border-slate-600/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+                    </div>
+
+                    <!-- Value -->
+                    <div class="mb-5">
+                        <label
+                            class="block text-slate-300 text-sm font-medium mb-2">Deal
+                            Value ($) *</label>
+                        <input type="number" [(ngModel)]="request.value"
+                            name="value" placeholder="0"
+                            class="w-full bg-slate-800 border border-slate-600/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+                    </div>
+
+                    <!-- Customer -->
+                    <div class="mb-5">
+                        <label
+                            class="block text-slate-300 text-sm font-medium mb-2">Customer
+                            *</label>
+                        <select [(ngModel)]="request.customerId"
+                            name="customerId"
+                            class="w-full bg-slate-800 border border-slate-600/50 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                            <option value>Select a customer</option>
+                            <option *ngFor="let customer of customers"
+                                [value]="customer.id">
+                                {{ customer.firstName }} {{ customer.lastName }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Expected Close Date -->
+                    <div class="mb-5">
+                        <label
+                            class="block text-slate-300 text-sm font-medium mb-2">Expected
+                            Close Date</label>
+                        <input type="date"
+                            [(ngModel)]="request.expectedCloseDate"
+                            name="expectedCloseDate"
+                            class="w-full bg-slate-800 border border-slate-600/50 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="mb-6">
+                        <label
+                            class="block text-slate-300 text-sm font-medium mb-2">Notes</label>
+                        <textarea [(ngModel)]="request.notes" name="notes"
+                            placeholder="Any additional notes..." rows="3"
+                            class="w-full bg-slate-800 border border-slate-600/50 text-white placeholder-slate-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"></textarea>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-3">
+                        <button type="submit" [disabled]="isLoading"
+                            class="flex-1 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-xl transition-all text-sm">
+                            <span *ngIf="!isLoading">Save Deal</span>
+                            <span *ngIf="isLoading">Saving...</span>
+                        </button>
+                        <a routerLink="/deals"
+                            class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 rounded-xl transition-all text-sm text-center">
+                            Cancel
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
